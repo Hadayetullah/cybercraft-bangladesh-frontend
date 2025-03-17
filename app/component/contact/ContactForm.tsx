@@ -37,11 +37,11 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="absolute w-full flex items-center justify-center sm:justify-start pt-7 sm:pl-[20px] md:pt-[50px] md:pl-[30px] lg:pt-[70px] lg:pl-[80px] xl:pl-[15%] 2xl:pt-[129px] z-5">
+    <div className="absolute w-full flex items-center justify-center sm:justify-start pt-4 sm:pt-[35px] sm:pl-[20px] md:pl-[30px] lg:pt-[40px] lg:pl-[80px] xl:pl-[15%] 2xl:pt-[65px] z-5">
       <div className="w-[90%] ">
         <img
           src={"/image/CyberCraft-Bangladesh.png"}
-          className="w-[100px] sm:w-[120px] md:w-[140px] lg:w-[186px] lg:h-[80px] 2xl:w-[294px] 2xl:h-[129px] "
+          className="w-[120px] sm:w-[130px] md:w-[150px] lg:w-[186px] lg:h-[80px] 2xl:w-[294px] 2xl:h-[129px] "
           alt="CyberCraft Bangladesh"
         />
 
