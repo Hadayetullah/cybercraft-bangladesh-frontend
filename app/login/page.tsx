@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../component/navbar/Navbar";
-import SignupForm from "../component/signup/SignupForm";
+import LoginForm from "../component/login/LoginForm";
 
 const Page = () => {
   return (
@@ -14,7 +14,7 @@ const Page = () => {
         }}
       >
         <div className="w-full h-full xl:w-[1084px] mx-auto">
-          <div className="w-full h-full flex flex-col sm:flex-row items-center justify-evenly sm:gap-x-10 sm:px-4">
+          <div className="w-full h-full flex flex-col sm:flex-row items-center justify-evenly sm:gap-x-8 sm:px-4">
             <div className="w-full flex flex-col items-center gap-y-7">
               <img
                 src={"/image/CyberCraft-Bangladesh.png"}
@@ -28,8 +28,8 @@ const Page = () => {
               </p>
             </div>
 
-            <div className="w-full h-full pt-5 sm:pt-7">
-              <SignupForm />
+            <div className="w-full h-full">
+              <LoginForm />
             </div>
           </div>
         </div>

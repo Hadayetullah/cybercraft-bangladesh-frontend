@@ -25,10 +25,14 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (formData.name == "") {
       setError("name");
     } else if (formData.email == "") {
       setError("email");
+    } else if (!emailRegex.test(formData.email)) {
+      setError("invalid_email");
     } else if (formData.message == "") {
       setError("message");
     } else {
@@ -98,13 +102,19 @@ const ContactForm = () => {
               className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[12px] 2xl:py-[18px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
             />
 
-            <p
-              className={`text-red-500 text-xs italic ${
-                error === "email" ? "visible" : "invisible"
+            <div
+              className={`text-red-500 text-xs italic h-[16px] ${
+                error === "email" || "invalid_email" ? "visible" : "invisible"
               }`}
             >
-              Please enter your email address
-            </p>
+              <p>
+                {error === "email"
+                  ? "Please enter your email address"
+                  : error === "invalid_email"
+                  ? "Please enter a valid email address"
+                  : ""}
+              </p>
+            </div>
           </div>
 
           <div className="w-full">
