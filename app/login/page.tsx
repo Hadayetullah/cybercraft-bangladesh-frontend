@@ -3,9 +3,10 @@ import Navbar from "../component/navbar/Navbar";
 import LoginForm from "../component/login/LoginForm";
 
 const Page = () => {
+  const data = null;
   return (
     <>
-      <Navbar />
+      <Navbar data={data} />
       <div
         className="w-full pt-[100px] sm:pt-[0px] h-[110vh] sm:h-[100vh] px-4 sm:px-0"
         style={{

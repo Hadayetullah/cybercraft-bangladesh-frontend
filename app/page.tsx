@@ -3,9 +3,10 @@ import ContactForm from "./component/contact/ContactForm";
 import Navbar from "./component/navbar/Navbar";
 
 export default function Home() {
+  const data = null;
   return (
     <>
-      <Navbar />
+      <Navbar data={data} />
       <div className="w-full pt-[65px] sm:pt-[55px] h-[100vh] bg-[#E2ECFF] overflow-hidden">
         <div className="w-full h-full relative">
           <svg

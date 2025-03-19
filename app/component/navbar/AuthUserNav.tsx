@@ -39,7 +39,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
         </div>
 
         <div className="flex flex-row items-center justify-center h-full relative gap-x-5">
-          <button className="w-[45px] h-[45px] text-white cursor-pointer sm:hidden">
+          <button className="w-[45px] h-[45px] text-gray-900 cursor-pointer sm:hidden">
             <svg
               fill="none"
               viewBox="0 0 24 24"
@@ -71,21 +71,57 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
           </button>
 
           {toggleMenu && (
-            <div className="flex flex-col w-full absolute left-0 top-9 bg-white min-w-[120px] max-w-[150px] border border-gray-200 bg-gray-100 rounded rounded-xs shadow-lg sm:hidden">
+            <div className="flex flex-col absolute left-0 top-12 bg-white w-[220px] text-[17px] font-[600] border border-gray-200 bg-gray-100 rounded rounded-xs shadow-lg sm:hidden">
               <Link
-                href="/test"
-                className={`transition bg-gray-100 rounded hover:text-white hover:text-white w-full h-full py-1 px-2 font-normal hover:bg-indigo-700 ${
-                  path === "/test" ? "bg-indigo-700 text-white" : ""
+                href="#"
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                  path === "#" ? "bg-indigo-700 text-white" : ""
                 }`}
               >
-                Other actions
+                Customer's Message
+              </Link>
+
+              <Link
+                href="#"
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                  path === "#" ? "bg-indigo-700 text-white" : ""
+                }`}
+              >
+                Employees
+              </Link>
+
+              <Link
+                href="#"
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                  path === "#" ? "bg-indigo-700 text-white" : ""
+                }`}
+              >
+                Settings
+              </Link>
+
+              <Link
+                href="#"
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                  path === "#" ? "bg-indigo-700 text-white" : ""
+                }`}
+              >
+                Option 1
+              </Link>
+
+              <Link
+                href="#"
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                  path === "#" ? "bg-indigo-700 text-white" : ""
+                }`}
+              >
+                Option 2
               </Link>
             </div>
           )}
         </div>
       </div>
 
-      <div className="relative h-full flex flex-row justify-between ml-5">
+      <div className="relative h-full flex flex-row items-center justify-between ml-5">
         <div className="hidden h-full sm:flex flex-col justify-center gap-y-1 text-nowrap">
           <h2 className="text-[#111111] text-[16px] font-[500] leading-[100%] tracking-[0px] ">
             Arya Stark
@@ -96,7 +132,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
           </h3>
         </div>
 
-        <button className="size-[45px] text-white ml-2 cursor-pointer">
+        <button className="size-[45px] text-gray-900 ml-2 cursor-pointer">
           <svg
             fill="none"
             viewBox="0 0 24 24"
