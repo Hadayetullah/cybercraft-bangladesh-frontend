@@ -30,7 +30,7 @@ const AdminMain = () => {
 
             <div className="overflow-auto w-full h-[calc(100vh-240px)] mt-[65px]">
               <div className="w-full h-[30px] text-[#111111] text-[18px] font-[500] leading-[100%] tracking-[0%] flex flex-row items-center pb-2 border-b border-gray-100 ">
-                <div className="min-w-[30px] max-w-[8%] flex items-center justify-start ">
+                <div className="min-w-[50px] max-w-[8%] flex items-center justify-start ">
                   <h4>No.</h4>
                 </div>
 
@@ -53,7 +53,7 @@ const AdminMain = () => {
 
               <div className="w-full h-[calc(100vh-270px)] text-[#606060] text-[18px] leading-[100%] tracking-[0%] ">
                 <div className="w-full h-[40px] flex flex-row items-center justify-start ">
-                  <div className="min-w-[30px] max-w-[8%] flex items-center justify-start ">
+                  <div className="min-w-[50px] max-w-[8%] flex items-center justify-start ">
                     <h4>No.</h4>
                   </div>
 

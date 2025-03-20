@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
+import OTPModal from "../modals/OTPModal";
 
 const SignupForm = () => {
+  const [emailForOtp, setEmailForOtp] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [formData, setFormData] = useState({
@@ -201,6 +203,11 @@ const SignupForm = () => {
           </Link>
         </div>
       </form>
+
+      {/* OTP Modal */}
+      {emailForOtp && (
+        <OTPModal email={emailForOtp} onClose={() => setEmailForOtp(null)} />
+      )}
     </div>
   );
 };
