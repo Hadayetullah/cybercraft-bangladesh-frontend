@@ -3,17 +3,22 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import OTPModal from "../modals/OTPModal";
+import apiService from "@/app/actions/apiActions";
+import ErrorModal from "../modals/ErrorModal";
 
 const SignupForm = () => {
   const [emailForOtp, setEmailForOtp] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [apiError, setApiError] = useState<any>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirm_password: "",
   });
+
+  console.log(apiError);
 
   const handleChange = (e: any) => {
     setFormData({
@@ -46,7 +51,28 @@ const SignupForm = () => {
     } else if (formData.password !== formData.confirm_password) {
       setError("password_mismatch");
     } else {
-      console.log(formData);
+      console.log("formData : ", formData);
+      const data = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      };
+      const response = await apiService.postWithoutToken(
+        "/api/auth/register/",
+        JSON.stringify(data)
+      );
+
+      if (response.email) {
+        console.log("response : ", response.email);
+      } else {
+        const tmpErrors: string[] = Object.values(response).map(
+          (error: any) => {
+            return error;
+          }
+        );
+
+        setApiError(tmpErrors.join(", "));
+      }
     }
   };
 
@@ -207,6 +233,11 @@ const SignupForm = () => {
       {/* OTP Modal */}
       {emailForOtp && (
         <OTPModal email={emailForOtp} onClose={() => setEmailForOtp(null)} />
+      )}
+
+      {/* API Error Modal */}
+      {apiError && (
+        <ErrorModal error={apiError} handleError={() => setApiError(null)} />
       )}
     </div>
   );
