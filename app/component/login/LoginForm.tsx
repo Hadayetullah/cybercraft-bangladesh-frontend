@@ -62,9 +62,11 @@ const LoginForm = () => {
       );
 
       if (response.token) {
+        console.log("response : ", response.user);
         await setCredentials(
           response.token.access_token,
-          response.token.refresh_token
+          response.token.refresh_token,
+          response.user
         );
         router.push("/admin");
         setLoading(false);
@@ -170,6 +172,7 @@ const LoginForm = () => {
         <button
           onSubmit={(e) => handleSubmit(e)}
           onClick={(e) => handleSubmit(e)}
+          disabled={loading}
           className={`"w-full h-[35px] sm:h-[45px] xl:h-[56px] leading-[125%] tracking-[0%] text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] rounded-[10px] ${
             loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
           }`}

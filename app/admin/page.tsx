@@ -1,20 +1,19 @@
 import React from "react";
 import Navbar from "../component/navbar/Navbar";
 import AdminMain from "../component/admin/AdminMain";
-import { getRefreshToken } from "../actions/serverActions";
+import { getRefreshToken, getUser } from "../actions/serverActions";
 
 const page = async () => {
-  const data = "admin";
-
   const refresh_token = await getRefreshToken();
-  // console.log("refresh_token : ", refresh_token);
   if (!refresh_token) {
     return { redirect: { destination: "/login", permanent: false } };
   }
 
+  const user = await getUser();
+
   return (
     <>
-      <Navbar data={data} />
+      <Navbar data={user} />
       <div className="w-full mx-auto relative">
         <AdminMain />
       </div>

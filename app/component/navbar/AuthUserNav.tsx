@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import NavSearchBar from "./NavSearchBar";
 
 interface AuthenticatedProps {
+  user: any;
   setToggleMenu: (toggleMenu: boolean) => void;
   toggleMenu: boolean;
   path: string;
@@ -10,9 +11,11 @@ interface AuthenticatedProps {
   setToggleUser: (toggleUser: boolean) => void;
   handleSettings: () => void;
   handleLogout: () => void;
+  logoutLoading: boolean;
 }
 
 const AuthUserNav: React.FC<AuthenticatedProps> = ({
+  user,
   setToggleMenu,
   toggleMenu,
   path,
@@ -20,6 +23,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
   setToggleUser,
   handleSettings,
   handleLogout,
+  logoutLoading,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   return (
@@ -124,7 +128,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
       <div className="relative h-full flex flex-row items-center justify-between ml-5">
         <div className="hidden h-full sm:flex flex-col justify-center gap-y-1 text-nowrap">
           <h2 className="text-[#111111] text-[16px] font-[500] leading-[100%] tracking-[0px] ">
-            Arya Stark
+            {user.name}
           </h2>
 
           <h3 className="text-[#565656] text-[14px] font-[600] leading-[100%] tracking-[0px]">
@@ -169,9 +173,15 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
 
             <button
               onClick={() => handleLogout()}
-              className="transition bg-gray-100 rounded hover:border hover:border-white hover:text-white w-full h-full mt-6 py-2 px-2 text-center font-semibold hover:bg-indigo-700"
+              disabled={logoutLoading}
+              className={`transition bg-gray-100 rounded hover:border hover:border-white hover:text-white w-full h-full mt-6 py-2 px-2 text-center font-semibold hover:bg-indigo-700 ${
+                logoutLoading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "cursor-pointer"
+              }`}
             >
               Logout
+              {logoutLoading ? "Logging out..." : "Logout"}
             </button>
           </div>
         )}

@@ -10,7 +10,7 @@ export async function decodeToken(token:string) {
     return payload
 }
 
-export async function setCredentials(access_token: string, refresh_token: string) {
+export async function setCredentials(access_token: string, refresh_token: string, user:any) {
     const cookieStore = await cookies(); // Await the cookies() promise
 
     const decodedAccessToken = await decodeToken(access_token);
@@ -38,6 +38,12 @@ export async function setCredentials(access_token: string, refresh_token: string
         maxAge: decodedRefreshToken.exp > 0 ? decodedRefreshToken.exp : 0,
         path: '/',
     });
+
+    cookieStore.set('user', JSON.stringify(user), {
+        httpOnly: false,
+        secure: false,
+        path: '/',
+    });
 }
 
 export async function resetAuthCookies() {
@@ -46,6 +52,7 @@ export async function resetAuthCookies() {
     // cookieStore.set('session_userid', '', { path: '/' });
     cookieStore.set('access_token', '', { path: '/' });
     cookieStore.set('refresh_token', '', { path: '/' });
+    cookieStore.set('user', '', { path: '/' });
 }
 
 // export async function getUserId() {
@@ -63,4 +70,9 @@ export async function getAccessToken() {
 export async function getRefreshToken() {
     const cookieStore = await cookies(); // Await the cookies() promise
     return cookieStore.get('refresh_token')?.value;
+}
+
+export async function getUser() {
+    const cookieStore = await cookies(); // Await the cookies() promise
+    return JSON.parse(cookieStore.get('user')?.value || "{}");
 }

@@ -33,7 +33,8 @@ const OTPModal: React.FC<OTPModalProps> = ({ email, onClose }) => {
       // console.log("response : ", response.token);
       await setCredentials(
         response.token.access_token,
-        response.token.refresh_token
+        response.token.refresh_token,
+        response.user
       );
 
       router.push("/admin");
