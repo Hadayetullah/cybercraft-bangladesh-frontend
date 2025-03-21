@@ -18,8 +18,6 @@ const SignupForm = () => {
     confirm_password: "",
   });
 
-  console.log(apiError);
-
   const handleChange = (e: any) => {
     setFormData({
       ...formData,
@@ -34,24 +32,32 @@ const SignupForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setLoading(true);
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (formData.name === "") {
       setError("name");
+      setLoading(false);
     } else if (formData.email === "") {
+      setLoading(false);
       setError("email");
     } else if (!emailRegex.test(formData.email)) {
+      setLoading(false);
       setError("invalid_email");
     } else if (formData.password === "") {
+      setLoading(false);
       setError("password");
     } else if (formData.password.length < 8) {
+      setLoading(false);
       setError("password_length");
     } else if (formData.confirm_password === "") {
+      setLoading(false);
       setError("confirm_password");
     } else if (formData.password !== formData.confirm_password) {
+      setLoading(false);
       setError("password_mismatch");
     } else {
-      console.log("formData : ", formData);
       const data = {
         name: formData.name,
         email: formData.email,
@@ -63,15 +69,29 @@ const SignupForm = () => {
       );
 
       if (response.email) {
-        console.log("response : ", response.email);
+        setEmailForOtp(response.email);
+        // console.log("response : ", response.email);
+        setLoading(false);
       } else {
-        const tmpErrors: string[] = Object.values(response).map(
-          (error: any) => {
+        if (response?.non_field_errors) {
+          const tmpErrors: string[] = Object.values(
+            response.non_field_errors[0]
+          ).map((error: any) => {
             return error;
-          }
-        );
+          });
 
-        setApiError(tmpErrors.join(", "));
+          setApiError(tmpErrors.join(", "));
+          setLoading(false);
+        } else {
+          const tmpErrors: string[] = Object.values(response).map(
+            (error: any) => {
+              return error;
+            }
+          );
+
+          setApiError(tmpErrors.join(", "));
+          setLoading(false);
+        }
       }
     }
   };
@@ -207,9 +227,12 @@ const SignupForm = () => {
         <button
           onSubmit={(e) => handleSubmit(e)}
           onClick={(e) => handleSubmit(e)}
-          className="w-full h-[35px] sm:h-[45px] xl:h-[56px] cursor-pointer leading-[125%] tracking-[0%] text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] rounded-[10px]"
+          disabled={loading}
+          className={`w-full h-[35px] sm:h-[45px] xl:h-[56px] leading-[125%] tracking-[0%] text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] rounded-[10px] ${
+            loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+          }`}
         >
-          Create account
+          {loading ? "Creating account..." : "Create account"}
         </button>
 
         <h2 className="text-[18px] text-[#000000B2] font-[600] text-center py-2 sm:py-4 leading-[125%] tracking-[0%] ">

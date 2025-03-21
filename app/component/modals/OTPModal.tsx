@@ -43,7 +43,7 @@ const OTPModal: React.FC<OTPModalProps> = ({ email, onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black opacity-95 z-[150]">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-lg">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-lg opacity-100">
         <h2 className="text-2xl font-bold text-center text-gray-900">
           Verify OTP
         </h2>
@@ -103,7 +103,10 @@ const OTPModal: React.FC<OTPModalProps> = ({ email, onClose }) => {
 
         <button
           onClick={onClose}
-          className="w-full px-4 py-2 mt-4 text-sm font-semibold text-indigo-600 bg-transparent rounded hover:bg-gray-100"
+          disabled={loading}
+          className={`w-full px-4 py-2 mt-4 text-sm font-semibold text-indigo-600 bg-transparent rounded hover:bg-gray-100 ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           Cancel
         </button>

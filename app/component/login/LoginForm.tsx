@@ -1,16 +1,20 @@
 "use client";
 
+import apiService from "@/app/actions/apiActions";
 import Link from "next/link";
 import React, { useState } from "react";
+import OTPModal from "../modals/OTPModal";
+import ErrorModal from "../modals/ErrorModal";
 
 const LoginForm = () => {
+  const [emailForOtp, setEmailForOtp] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [apiError, setApiError] = useState<any>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    confirm_password: "",
   });
 
   const handleChange = (e: any) => {
@@ -27,18 +31,57 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setLoading(true);
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (formData.email === "") {
+      setLoading(false);
       setError("email");
     } else if (!emailRegex.test(formData.email)) {
+      setLoading(false);
       setError("invalid_email");
     } else if (formData.password === "") {
+      setLoading(false);
       setError("password");
     } else if (formData.password.length < 8) {
+      setLoading(false);
       setError("password_length");
     } else {
-      console.log(formData);
+      const response = await apiService.postWithoutToken(
+        "/api/auth/login/",
+        JSON.stringify(formData)
+      );
+
+      if (response.email) {
+        setEmailForOtp(response.email);
+        // console.log("response : ", response.email);
+        setLoading(false);
+      } else {
+        if (response?.errors) {
+          setEmailForOtp(response?.errors[0].email);
+          // console.log("error response : ", response?.errors[0].email);
+          setLoading(false);
+        } else if (response?.non_field_errors) {
+          const tmpErrors: string[] = Object.values(
+            response.non_field_errors[0]
+          ).map((error: any) => {
+            return error;
+          });
+
+          setApiError(tmpErrors.join(", "));
+          setLoading(false);
+        } else {
+          const tmpErrors: string[] = Object.values(response).map(
+            (error: any) => {
+              return error;
+            }
+          );
+
+          setApiError(tmpErrors.join(", "));
+          setLoading(false);
+        }
+      }
     }
   };
 
@@ -112,9 +155,11 @@ const LoginForm = () => {
         <button
           onSubmit={(e) => handleSubmit(e)}
           onClick={(e) => handleSubmit(e)}
-          className="w-full h-[35px] sm:h-[45px] xl:h-[56px] cursor-pointer leading-[125%] tracking-[0%] text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] rounded-[10px]"
+          className={`"w-full h-[35px] sm:h-[45px] xl:h-[56px] leading-[125%] tracking-[0%] text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] rounded-[10px] ${
+            loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+          }`}
         >
-          Log in
+          {loading ? "Logging in..." : "Log in"}
         </button>
 
         <h2 className="text-[18px] text-[#000000B2] font-[600] text-center py-2 sm:py-4 leading-[125%] tracking-[0%] ">
@@ -134,6 +179,16 @@ const LoginForm = () => {
           </Link>
         </div>
       </form>
+
+      {/* OTP Modal */}
+      {emailForOtp && (
+        <OTPModal email={emailForOtp} onClose={() => setEmailForOtp(null)} />
+      )}
+
+      {/* API Error Modal */}
+      {apiError && (
+        <ErrorModal error={apiError} handleError={() => setApiError(null)} />
+      )}
     </div>
   );
 };
