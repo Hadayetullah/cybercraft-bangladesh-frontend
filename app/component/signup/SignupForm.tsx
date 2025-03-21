@@ -19,6 +19,10 @@ const SignupForm = () => {
   });
 
   const handleChange = (e: any) => {
+    if (error) {
+      setError("");
+    }
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -255,12 +259,22 @@ const SignupForm = () => {
 
       {/* OTP Modal */}
       {emailForOtp && (
-        <OTPModal email={emailForOtp} onClose={() => setEmailForOtp(null)} />
+        <OTPModal
+          email={emailForOtp}
+          onClose={() => {
+            setEmailForOtp(null);
+            setApiError(null);
+          }}
+        />
       )}
 
       {/* API Error Modal */}
       {apiError && (
-        <ErrorModal error={apiError} handleError={() => setApiError(null)} />
+        <ErrorModal
+          top={"90px"}
+          error={apiError}
+          handleError={() => setApiError(null)}
+        />
       )}
     </div>
   );

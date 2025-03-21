@@ -5,8 +5,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 import OTPModal from "../modals/OTPModal";
 import ErrorModal from "../modals/ErrorModal";
+import { setCredentials } from "@/app/actions/serverActions";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const [emailForOtp, setEmailForOtp] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -18,6 +22,10 @@ const LoginForm = () => {
   });
 
   const handleChange = (e: any) => {
+    if (error) {
+      setError("");
+    }
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -53,7 +61,14 @@ const LoginForm = () => {
         JSON.stringify(formData)
       );
 
-      if (response.email) {
+      if (response.token) {
+        await setCredentials(
+          response.token.access_token,
+          response.token.refresh_token
+        );
+        router.push("/admin");
+        setLoading(false);
+      } else if (response.email) {
         setEmailForOtp(response.email);
         // console.log("response : ", response.email);
         setLoading(false);
@@ -182,12 +197,22 @@ const LoginForm = () => {
 
       {/* OTP Modal */}
       {emailForOtp && (
-        <OTPModal email={emailForOtp} onClose={() => setEmailForOtp(null)} />
+        <OTPModal
+          email={emailForOtp}
+          onClose={() => {
+            setEmailForOtp(null);
+            setApiError(null);
+          }}
+        />
       )}
 
       {/* API Error Modal */}
       {apiError && (
-        <ErrorModal error={apiError} handleError={() => setApiError(null)} />
+        <ErrorModal
+          top={"90px"}
+          error={apiError}
+          handleError={() => setApiError(null)}
+        />
       )}
     </div>
   );

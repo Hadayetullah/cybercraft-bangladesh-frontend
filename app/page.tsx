@@ -4,6 +4,7 @@ import Navbar from "./component/navbar/Navbar";
 
 export default function Home() {
   const data = null;
+
   return (
     <>
       <Navbar data={data} />

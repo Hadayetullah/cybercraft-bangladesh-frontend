@@ -10,11 +10,11 @@ export async function decodeToken(token:string) {
     return payload
 }
 
-export async function setCredentials(accessToken: string, refreshToken: string) {
+export async function setCredentials(access_token: string, refresh_token: string) {
     const cookieStore = await cookies(); // Await the cookies() promise
 
-    const decodedAccessToken = await decodeToken(accessToken);
-    const decodedRefreshToken = await decodeToken(refreshToken);
+    const decodedAccessToken = await decodeToken(access_token);
+    const decodedRefreshToken = await decodeToken(refresh_token);
 
     // const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
 
@@ -25,14 +25,14 @@ export async function setCredentials(accessToken: string, refreshToken: string) 
     //     path: '/',
     // });
 
-    cookieStore.set('session_access_token', accessToken, {
+    cookieStore.set('access_token', access_token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: decodedAccessToken.exp > 0 ? decodedAccessToken.exp : 0,
         path: '/',
     });
 
-    cookieStore.set('session_refresh_token', refreshToken, {
+    cookieStore.set('refresh_token', refresh_token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: decodedRefreshToken.exp > 0 ? decodedRefreshToken.exp : 0,
@@ -44,8 +44,8 @@ export async function resetAuthCookies() {
     const cookieStore = await cookies(); // Await the cookies() promise
 
     // cookieStore.set('session_userid', '', { path: '/' });
-    cookieStore.set('session_access_token', '', { path: '/' });
-    cookieStore.set('session_refresh_token', '', { path: '/' });
+    cookieStore.set('access_token', '', { path: '/' });
+    cookieStore.set('refresh_token', '', { path: '/' });
 }
 
 // export async function getUserId() {
@@ -57,10 +57,10 @@ export async function resetAuthCookies() {
 
 export async function getAccessToken() {
     const cookieStore = await cookies(); // Await the cookies() promise
-    return cookieStore.get('session_access_token')?.value;
+    return cookieStore.get('access_token')?.value;
 }
 
 export async function getRefreshToken() {
     const cookieStore = await cookies(); // Await the cookies() promise
-    return cookieStore.get('session_refresh_token')?.value;
+    return cookieStore.get('refresh_token')?.value;
 }
