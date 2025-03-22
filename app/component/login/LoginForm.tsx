@@ -62,7 +62,7 @@ const LoginForm = () => {
       );
 
       if (response.token) {
-        console.log("response : ", response.user);
+        // console.log("response : ", response.user);
         await setCredentials(
           response.token.access_token,
           response.token.refresh_token,

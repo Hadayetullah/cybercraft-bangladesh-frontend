@@ -1,10 +1,16 @@
 "use client";
 
+import apiService from "@/app/actions/apiActions";
 import React, { useState } from "react";
+import ErrorModal from "../modals/ErrorModal";
+import DisplayMsg from "../modals/DisplayMsg";
 
 const ContactForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [apiError, setApiError] = useState<any>(null);
+  const [message, setMessage] = useState<any>(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,6 +18,10 @@ const ContactForm = () => {
   });
 
   const handleChange = (e: any) => {
+    if (error) {
+      setError("");
+    }
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -24,19 +34,48 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (formData.name == "") {
+      setLoading(false);
       setError("name");
     } else if (formData.email == "") {
+      setLoading(false);
       setError("email");
     } else if (!emailRegex.test(formData.email)) {
+      setLoading(false);
       setError("invalid_email");
     } else if (formData.message == "") {
+      setLoading(false);
       setError("message");
     } else {
-      console.log(formData);
+      const response = await apiService.postWithoutToken(
+        "/api/customer/message/",
+        JSON.stringify(formData)
+      );
+
+      if (response.msg) {
+        // console.log(response);
+        setMessage(response.msg);
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+
+        setLoading(false);
+      } else {
+        const tmpErrors: string[] = Object.values(response).map(
+          (error: any) => {
+            return error;
+          }
+        );
+
+        setApiError(tmpErrors.join(", "));
+        setLoading(false);
+      }
     }
   };
 
@@ -55,6 +94,10 @@ const ContactForm = () => {
             thrives
           </p>
         </div>
+
+        {message != null && (
+          <DisplayMsg setMessage={setMessage} message={message} />
+        )}
 
         <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 lg:space-y-2 2xl:space-y-3 pt-2 md:pt-4 lg:pt-5">
           <div className="w-full">
@@ -146,12 +189,23 @@ const ContactForm = () => {
           <button
             onSubmit={(e) => handleSubmit(e)}
             onClick={(e) => handleSubmit(e)}
-            className="cursor-pointer leading-[125%] tracking-[0%] text-[14px] sm:text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] py-[6px] md:py-[7px] lg:py-[9px] 2xl:py-[11px] rounded-[10px] mt-1"
+            disabled={loading}
+            className={`leading-[125%] tracking-[0%] text-[14px] sm:text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] py-[6px] md:py-[7px] lg:py-[9px] 2xl:py-[11px] rounded-[10px] mt-1 ${
+              loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+            }`}
           >
-            Submit
+            {loading ? "Submitting..." : "Submit"}
           </button>
         </form>
       </div>
+
+      {apiError && (
+        <ErrorModal
+          top={"90px"}
+          error={apiError}
+          handleError={() => setApiError(null)}
+        />
+      )}
     </div>
   );
 };
