@@ -95,10 +95,6 @@ const ContactForm = () => {
           </p>
         </div>
 
-        {message != null && (
-          <DisplayMsg setMessage={setMessage} message={message} />
-        )}
-
         <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 lg:space-y-2 2xl:space-y-3 pt-2 md:pt-4 lg:pt-5">
           <div className="w-full">
             <label
@@ -205,6 +201,10 @@ const ContactForm = () => {
           error={apiError}
           handleError={() => setApiError(null)}
         />
+      )}
+
+      {message != null && (
+        <DisplayMsg setMessage={setMessage} message={message} />
       )}
     </div>
   );

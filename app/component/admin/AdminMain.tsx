@@ -1,12 +1,44 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./customersMessage/Sidebar";
 import Search from "./customersMessage/Search";
 import Refresh from "./customersMessage/Refresh";
+import apiService from "@/app/actions/apiActions";
+import ErrorModal from "../modals/ErrorModal";
+import DisplayMsg from "../modals/DisplayMsg";
 
 const AdminMain = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [apiError, setApiError] = useState<any>(null);
+  const [message, setMessage] = useState<any>(null);
+  const [customerMessage, setCustomerMessage] = useState<any>(null);
+
+  console.log("customerMessage : ", customerMessage);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await apiService.get("/api/customer/message/");
+
+        if (response.msg) {
+          setMessage(response.msg);
+        } else if (response.data) {
+          // console.log(response.data);
+          setCustomerMessage(response.data);
+        } else {
+          const tmpErrors: string[] = Object.values(response).map(
+            (error: any) => error
+          );
+          setApiError(tmpErrors.join(", "));
+        }
+      } catch (error: any) {
+        setApiError("Failed to fetch messages");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -34,50 +66,94 @@ const AdminMain = () => {
                   <h4>No.</h4>
                 </div>
 
-                <div className="min-w-[140px] max-w-[17%] flex items-center justify-start">
+                <div className="min-w-[200px] max-w-[17%] flex items-center justify-start">
                   <h4>Name</h4>
                 </div>
 
-                <div className="min-w-[200px] max-w-[20%] flex items-center justify-start">
+                <div className="min-w-[250px] max-w-[20%] flex items-center justify-start ml-5">
                   <h4>Email</h4>
                 </div>
 
-                <div className="min-w-[400px] max-w-[40%] flex items-center justify-start">
+                <div className="min-w-[400px] max-w-[40%] flex items-center justify-start ml-5">
                   <h4>Message</h4>
                 </div>
 
-                <div className="min-w-[100px] max-w-[15%] flex items-center justify-start">
+                <div className="min-w-[160px] max-w-[15%] flex items-center justify-start ml-6">
                   <h4>Action</h4>
                 </div>
               </div>
 
-              <div className="w-full h-[calc(100vh-270px)] text-[#606060] text-[18px] leading-[100%] tracking-[0%] ">
-                <div className="w-full h-[40px] flex flex-row items-center justify-start ">
-                  <div className="min-w-[50px] max-w-[8%] flex items-center justify-start ">
-                    <h4>No.</h4>
-                  </div>
+              <div className="w-full text-[#606060] text-[18px] leading-[100%] tracking-[0%] ">
+                {customerMessage != null &&
+                  customerMessage.map((message: any, index: number) => {
+                    return (
+                      <div
+                        key={index}
+                        className="w-full h-[45px] flex flex-row items-center justify-start "
+                      >
+                        <div className="min-w-[50px] max-w-[8%] flex items-center justify-start ">
+                          <h4>{index}</h4>
+                        </div>
 
-                  <div className="min-w-[140px] max-w-[17%] flex items-center justify-start">
-                    <h4>Name</h4>
-                  </div>
+                        <div className="min-w-[200px] max-w-[17%] flex items-center justify-start overflow-hidden">
+                          <h4 className="text-nowrap ">{message.name}</h4>
+                        </div>
 
-                  <div className="min-w-[200px] max-w-[20%] flex items-center justify-start">
-                    <h4>Email</h4>
-                  </div>
+                        <div className="min-w-[250px] max-w-[20%] flex items-center justify-start ml-5 overflow-hidden">
+                          <h4 className="text-nowrap ">{message.email}</h4>
+                        </div>
 
-                  <div className="min-w-[400px] max-w-[40%] flex items-center justify-start">
-                    <h4>Message</h4>
-                  </div>
+                        <div className="min-w-[400px] max-w-[40%] flex items-center justify-start ml-5 overflow-hidden">
+                          <h4 className="text-nowrap ">{message.message}</h4>
+                        </div>
 
-                  <div className="min-w-[100px] max-w-[15%] flex items-center justify-start">
-                    <h4>Action</h4>
-                  </div>
-                </div>
+                        <div className="min-w-[160px] max-w-[15%] h-full flex items-center justify-start ml-6">
+                          <div className="w-full h-full flex flex-row items-center space-x-6">
+                            <button>
+                              <img
+                                src="/icon/download-box-icon.png"
+                                alt="Cybercraft download icon"
+                                className="w-[32px] h-[32px] "
+                              />
+                            </button>
+
+                            <button>
+                              <img
+                                src="/icon/eye-box-icon.png"
+                                alt="Cybercraft eye icon"
+                                className="w-[32px] h-[32px] "
+                              />
+                            </button>
+
+                            <button>
+                              <img
+                                src="/icon/delete-box-icon.png"
+                                alt="Cybercraft delete icon"
+                                className="w-[32px] h-[32px] "
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {apiError && (
+        <ErrorModal
+          top={"90px"}
+          error={apiError}
+          handleError={() => setApiError(null)}
+        />
+      )}
+
+      {message != null && (
+        <DisplayMsg setMessage={setMessage} message={message} />
+      )}
     </>
   );
 };

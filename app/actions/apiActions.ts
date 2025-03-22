@@ -80,7 +80,34 @@ const apiService = {
                 reject(error)
             })
         }) 
-    }
+    },
+
+
+    delete: async function (url:string) : Promise<any> {
+        console.log('get', url)
+
+        const token = await getAccessToken();
+
+        return new Promise((resolve, reject) => {
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL}${url}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'Application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(respose => respose.json())
+            .then(json => {
+                console.log('Respose', json)
+
+                resolve(json)
+            })
+
+            .catch(error => {
+                reject(error)
+            })
+        }) 
+    },
 }
 
 
