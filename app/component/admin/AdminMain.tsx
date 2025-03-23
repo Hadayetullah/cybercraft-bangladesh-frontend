@@ -7,11 +7,13 @@ import Refresh from "./customersMessage/Refresh";
 import apiService from "@/app/actions/apiActions";
 import ErrorModal from "../modals/ErrorModal";
 import DisplayMsg from "../modals/DisplayMsg";
+import MessageDetailModal from "./customersMessage/MessageDetailModal";
 
 const AdminMain = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [apiError, setApiError] = useState<any>(null);
   const [message, setMessage] = useState<any>(null);
+  const [messageDetail, setMessageDetail] = useState<any>(null);
   const [refreshButtonLoading, setRefreshButtonLoading] =
     useState<boolean>(false);
 
@@ -88,6 +90,13 @@ const AdminMain = () => {
   return (
     <>
       <Sidebar />
+
+      {messageDetail && (
+        <MessageDetailModal
+          messageDetail={messageDetail}
+          setMessageDetail={setMessageDetail}
+        />
+      )}
 
       <div className="w-full bg-[#e0e2e5] sm:pl-[250px] xl:pl-[345px] pt-[80px] flex flex-row fixed top-[0] left-[0px] h-full">
         <div className="w-full h-full py-2 px-10">
@@ -166,7 +175,10 @@ const AdminMain = () => {
                                 />
                               </button>
 
-                              <button className="cursor-pointer">
+                              <button
+                                onClick={() => setMessageDetail(message)}
+                                className="cursor-pointer"
+                              >
                                 <img
                                   src="/icon/eye-box-icon.png"
                                   alt="Cybercraft eye icon"
@@ -227,7 +239,10 @@ const AdminMain = () => {
                               />
                             </button>
 
-                            <button className="cursor-pointer">
+                            <button
+                              onClick={() => setMessageDetail(message)}
+                              className="cursor-pointer"
+                            >
                               <img
                                 src="/icon/eye-box-icon.png"
                                 alt="Cybercraft eye icon"
