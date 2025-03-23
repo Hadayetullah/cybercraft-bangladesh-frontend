@@ -2,15 +2,30 @@
 
 import React from "react";
 
-const Refresh = () => {
+interface RefreshProps {
+  refreshButtonLoading: boolean;
+  handleRefresh: () => void;
+}
+
+const Refresh: React.FC<RefreshProps> = ({
+  refreshButtonLoading,
+  handleRefresh,
+}) => {
   return (
-    <div>
+    <button
+      onClick={() => handleRefresh()}
+      className={`${
+        refreshButtonLoading
+          ? "opacity-50 cursor-not-allowed"
+          : "cursor-pointer"
+      }`}
+    >
       <img
         src="/icon/refresh-button.png"
         alt="Cybercraft bangladesh refresh button"
         className="w-[40px] h-[40px]"
       />
-    </div>
+    </button>
   );
 };
 

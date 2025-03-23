@@ -12,6 +12,8 @@ const AdminMain = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [apiError, setApiError] = useState<any>(null);
   const [message, setMessage] = useState<any>(null);
+  const [refreshButtonLoading, setRefreshButtonLoading] =
+    useState<boolean>(false);
   const [customerMessage, setCustomerMessage] = useState<any>(null);
 
   console.log("customerMessage : ", customerMessage);
@@ -35,27 +37,36 @@ const AdminMain = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await apiService.get("/api/customer/message/");
+  const handleRefresh = () => {
+    setRefreshButtonLoading(true);
+    fetchData();
+  };
 
-        if (response.msg) {
-          setMessage(response.msg);
-        } else if (response.data) {
-          // console.log(response.data);
-          setCustomerMessage(response.data);
-        } else {
-          const tmpErrors: string[] = Object.values(response).map(
-            (error: any) => error
-          );
-          setApiError(tmpErrors.join(", "));
-        }
-      } catch (error: any) {
-        setApiError("Failed to fetch messages");
+  const fetchData = async () => {
+    try {
+      const response = await apiService.get("/api/customer/message/");
+
+      if (response.msg) {
+        setMessage(response.msg);
+        setRefreshButtonLoading(false);
+      } else if (response.data) {
+        // console.log(response.data);
+        setCustomerMessage(response.data);
+        setRefreshButtonLoading(false);
+      } else {
+        const tmpErrors: string[] = Object.values(response).map(
+          (error: any) => error
+        );
+        setApiError(tmpErrors.join(", "));
+        setRefreshButtonLoading(false);
       }
-    };
+    } catch (error: any) {
+      setApiError("Failed to fetch messages");
+      setRefreshButtonLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -76,7 +87,10 @@ const AdminMain = () => {
                 setSearchQuery={setSearchQuery}
               />
 
-              <Refresh />
+              <Refresh
+                refreshButtonLoading={refreshButtonLoading}
+                handleRefresh={handleRefresh}
+              />
             </div>
 
             <div className="overflow-auto w-full h-[calc(100vh-240px)] mt-[65px]">
