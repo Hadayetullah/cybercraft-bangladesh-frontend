@@ -15,6 +15,25 @@ const AdminMain = () => {
   const [customerMessage, setCustomerMessage] = useState<any>(null);
 
   console.log("customerMessage : ", customerMessage);
+  console.log("apiError : ", apiError);
+
+  const handleDelete = async (id: string) => {
+    const response = await apiService.delete(`/api/customer/message/${id}/`);
+
+    if (response.msg) {
+      setCustomerMessage((prevMessages: any) =>
+        prevMessages ? prevMessages.filter((item: any) => item.id !== id) : []
+      );
+
+      setMessage(response.msg);
+    } else {
+      const tmpErrors: string[] = Object.values(response).map((error: any) => {
+        return error;
+      });
+
+      setApiError(tmpErrors.join(", "));
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,7 +111,7 @@ const AdminMain = () => {
                         className="w-full h-[45px] flex flex-row items-center justify-start "
                       >
                         <div className="min-w-[50px] max-w-[8%] flex items-center justify-start ">
-                          <h4>{index}</h4>
+                          <h4>{index + 1}</h4>
                         </div>
 
                         <div className="min-w-[200px] max-w-[17%] flex items-center justify-start overflow-hidden">
@@ -109,7 +128,7 @@ const AdminMain = () => {
 
                         <div className="min-w-[160px] max-w-[15%] h-full flex items-center justify-start ml-6">
                           <div className="w-full h-full flex flex-row items-center space-x-6">
-                            <button>
+                            <button className="cursor-pointer">
                               <img
                                 src="/icon/download-box-icon.png"
                                 alt="Cybercraft download icon"
@@ -117,7 +136,7 @@ const AdminMain = () => {
                               />
                             </button>
 
-                            <button>
+                            <button className="cursor-pointer">
                               <img
                                 src="/icon/eye-box-icon.png"
                                 alt="Cybercraft eye icon"
@@ -125,7 +144,10 @@ const AdminMain = () => {
                               />
                             </button>
 
-                            <button>
+                            <button
+                              onClick={() => handleDelete(message.id)}
+                              className="cursor-pointer"
+                            >
                               <img
                                 src="/icon/delete-box-icon.png"
                                 alt="Cybercraft delete icon"
