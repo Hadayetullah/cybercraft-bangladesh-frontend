@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Sidebar from "./customersMessage/Sidebar";
 import Search from "./customersMessage/Search";
 import Refresh from "./customersMessage/Refresh";
@@ -14,10 +14,11 @@ const AdminMain = () => {
   const [message, setMessage] = useState<any>(null);
   const [refreshButtonLoading, setRefreshButtonLoading] =
     useState<boolean>(false);
-  const [customerMessage, setCustomerMessage] = useState<any>(null);
 
-  console.log("customerMessage : ", customerMessage);
-  console.log("apiError : ", apiError);
+  const [customerMessage, setCustomerMessage] = useState<any>([]);
+
+  // console.log("customerMessage : ", customerMessage);
+  // console.log("apiError : ", apiError);
 
   const handleDelete = async (id: string) => {
     const response = await apiService.delete(`/api/customer/message/${id}/`);
@@ -41,6 +42,20 @@ const AdminMain = () => {
     setRefreshButtonLoading(true);
     fetchData();
   };
+
+  const searchedMessage = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return; // Clear search results if searchQuery is empty
+    }
+
+    return customerMessage.filter((item: any) =>
+      Object.values(item).some(
+        (value) =>
+          typeof value === "string" &&
+          value.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+  }, [searchQuery, customerMessage]);
 
   const fetchData = async () => {
     try {
@@ -117,7 +132,69 @@ const AdminMain = () => {
               </div>
 
               <div className="w-full text-[#606060] text-[18px] leading-[100%] tracking-[0%] ">
-                {customerMessage != null &&
+                {searchedMessage !== undefined ? (
+                  searchedMessage.length > 0 ? (
+                    searchedMessage.map((message: any, index: number) => {
+                      return (
+                        <div
+                          key={index}
+                          className="w-full h-[45px] flex flex-row items-center justify-start "
+                        >
+                          <div className="min-w-[50px] max-w-[8%] flex items-center justify-start ">
+                            <h4>{index + 1}</h4>
+                          </div>
+
+                          <div className="min-w-[200px] max-w-[17%] flex items-center justify-start overflow-hidden">
+                            <h4 className="text-nowrap ">{message.name}</h4>
+                          </div>
+
+                          <div className="min-w-[250px] max-w-[20%] flex items-center justify-start ml-5 overflow-hidden">
+                            <h4 className="text-nowrap ">{message.email}</h4>
+                          </div>
+
+                          <div className="min-w-[400px] max-w-[40%] flex items-center justify-start ml-5 overflow-hidden">
+                            <h4 className="text-nowrap ">{message.message}</h4>
+                          </div>
+
+                          <div className="min-w-[160px] max-w-[15%] h-full flex items-center justify-start ml-6">
+                            <div className="w-full h-full flex flex-row items-center space-x-6">
+                              <button className="cursor-pointer">
+                                <img
+                                  src="/icon/download-box-icon.png"
+                                  alt="Cybercraft download icon"
+                                  className="w-[32px] h-[32px] "
+                                />
+                              </button>
+
+                              <button className="cursor-pointer">
+                                <img
+                                  src="/icon/eye-box-icon.png"
+                                  alt="Cybercraft eye icon"
+                                  className="w-[32px] h-[32px] "
+                                />
+                              </button>
+
+                              <button
+                                onClick={() => handleDelete(message.id)}
+                                className="cursor-pointer"
+                              >
+                                <img
+                                  src="/icon/delete-box-icon.png"
+                                  alt="Cybercraft delete icon"
+                                  className="w-[32px] h-[32px] "
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <h4 className="text-center text-lg xl:text-xl text-gray-500 mt-4">
+                      No Customer Message Available
+                    </h4>
+                  )
+                ) : customerMessage.length > 0 ? (
                   customerMessage.map((message: any, index: number) => {
                     return (
                       <div
@@ -172,7 +249,69 @@ const AdminMain = () => {
                         </div>
                       </div>
                     );
-                  })}
+                  })
+                ) : (
+                  <h4 className="text-center text-lg xl:text-xl text-gray-500 mt-4">
+                    No Customer Message Found
+                  </h4>
+                )}
+
+                {/* {customerMessage.length > 0 &&
+                  customerMessage.map((message: any, index: number) => {
+                    return (
+                      <div
+                        key={index}
+                        className="w-full h-[45px] flex flex-row items-center justify-start "
+                      >
+                        <div className="min-w-[50px] max-w-[8%] flex items-center justify-start ">
+                          <h4>{index + 1}</h4>
+                        </div>
+
+                        <div className="min-w-[200px] max-w-[17%] flex items-center justify-start overflow-hidden">
+                          <h4 className="text-nowrap ">{message.name}</h4>
+                        </div>
+
+                        <div className="min-w-[250px] max-w-[20%] flex items-center justify-start ml-5 overflow-hidden">
+                          <h4 className="text-nowrap ">{message.email}</h4>
+                        </div>
+
+                        <div className="min-w-[400px] max-w-[40%] flex items-center justify-start ml-5 overflow-hidden">
+                          <h4 className="text-nowrap ">{message.message}</h4>
+                        </div>
+
+                        <div className="min-w-[160px] max-w-[15%] h-full flex items-center justify-start ml-6">
+                          <div className="w-full h-full flex flex-row items-center space-x-6">
+                            <button className="cursor-pointer">
+                              <img
+                                src="/icon/download-box-icon.png"
+                                alt="Cybercraft download icon"
+                                className="w-[32px] h-[32px] "
+                              />
+                            </button>
+
+                            <button className="cursor-pointer">
+                              <img
+                                src="/icon/eye-box-icon.png"
+                                alt="Cybercraft eye icon"
+                                className="w-[32px] h-[32px] "
+                              />
+                            </button>
+
+                            <button
+                              onClick={() => handleDelete(message.id)}
+                              className="cursor-pointer"
+                            >
+                              <img
+                                src="/icon/delete-box-icon.png"
+                                alt="Cybercraft delete icon"
+                                className="w-[32px] h-[32px] "
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })} */}
               </div>
             </div>
           </div>
