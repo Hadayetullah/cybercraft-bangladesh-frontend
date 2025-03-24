@@ -95,7 +95,7 @@ const ContactForm = () => {
           </p>
         </div>
 
-        <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 xl:space-y-2 2xl:space-y-3 pt-2 md:pt-3 lg:pt-4 2xl:pt-7">
+        <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 xl:space-y-2 2xl:space-y-3 pt-2 lg:pt-3 2xl:pt-6">
           <div className="w-full">
             <label
               htmlFor="name"
@@ -111,7 +111,7 @@ const ContactForm = () => {
               onChange={(e) => handleChange(e)}
               onFocus={() => handleFocus()}
               required
-              className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[12px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+              className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[10px] 2xl:py-[12px] mt-0 2xl:mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
             />
 
             <p
@@ -138,7 +138,7 @@ const ContactForm = () => {
               onChange={(e) => handleChange(e)}
               onFocus={() => handleFocus()}
               required
-              className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[12px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+              className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[10px] 2xl:py-[12px] mt-0 2xl:mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
             />
 
             <div
@@ -186,7 +186,7 @@ const ContactForm = () => {
             onSubmit={(e) => handleSubmit(e)}
             onClick={(e) => handleSubmit(e)}
             disabled={loading}
-            className={`leading-[125%] tracking-[0%] text-[14px] sm:text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] py-[6px] md:py-[7px] 2xl:py-[11px] rounded-[10px] mt-1 ${
+            className={`leading-[125%] tracking-[0%] text-[14px] sm:text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] py-[6px] md:py-[8px] 2xl:py-[11px] rounded-[10px] mt-0 2xl:mt-1 ${
               loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
             }`}
           >
