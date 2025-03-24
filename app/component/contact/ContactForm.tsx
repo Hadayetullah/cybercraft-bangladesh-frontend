@@ -88,14 +88,14 @@ const ContactForm = () => {
           alt="CyberCraft Bangladesh"
         />
 
-        <div className="text-wrap my-4">
-          <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] 2xl:text-[20px] text-[#353535] leading-[100%] tracking-[0%]">
+        <div className="text-wrap my-2 md:my-4">
+          <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] 2xl:text-[18px] text-[#353535] leading-[100%] tracking-[0%]">
             Welcome back to CyberCraft Bangladesh, <br /> where your creativity
             thrives
           </p>
         </div>
 
-        <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 lg:space-y-2 2xl:space-y-3 pt-2 md:pt-4 lg:pt-5">
+        <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 xl:space-y-2 2xl:space-y-3 pt-2 md:pt-3 lg:pt-4 2xl:pt-7">
           <div className="w-full">
             <label
               htmlFor="name"
@@ -111,7 +111,7 @@ const ContactForm = () => {
               onChange={(e) => handleChange(e)}
               onFocus={() => handleFocus()}
               required
-              className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[12px] 2xl:py-[18px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+              className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[12px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
             />
 
             <p
@@ -138,7 +138,7 @@ const ContactForm = () => {
               onChange={(e) => handleChange(e)}
               onFocus={() => handleFocus()}
               required
-              className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[12px] 2xl:py-[18px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+              className="w-full bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[10px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[12px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
             />
 
             <div
@@ -170,7 +170,7 @@ const ContactForm = () => {
               onChange={(e) => handleChange(e)}
               onFocus={() => handleFocus()}
               required
-              className="w-full h-[90px] lg:h-[100px] 2xl:h-[139px] bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[12px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[14px] 2xl:py-[18px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+              className="w-full h-[90px] lg:h-[100px] 2xl:h-[139px] bg-[#FFFFFF] text-[14px] leading-[125%] tracking-[0%] text-[#00000080] px-[5px] md:px-[7px] lg:px-[12px] 2xl:px-[16px] py-[6px] md:py-[8px] lg:py-[14px] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
             />
 
             <p
@@ -186,7 +186,7 @@ const ContactForm = () => {
             onSubmit={(e) => handleSubmit(e)}
             onClick={(e) => handleSubmit(e)}
             disabled={loading}
-            className={`leading-[125%] tracking-[0%] text-[14px] sm:text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] py-[6px] md:py-[7px] lg:py-[9px] 2xl:py-[11px] rounded-[10px] mt-1 ${
+            className={`leading-[125%] tracking-[0%] text-[14px] sm:text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] py-[6px] md:py-[7px] 2xl:py-[11px] rounded-[10px] mt-1 ${
               loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
             }`}
           >
