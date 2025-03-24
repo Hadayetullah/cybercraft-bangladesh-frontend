@@ -23,7 +23,7 @@ const Refresh: React.FC<RefreshProps> = ({
       <img
         src="/icon/refresh-button.png"
         alt="Cybercraft bangladesh refresh button"
-        className="w-[40px] h-[40px]"
+        className="w-[35px] h-[35px] sm:w-[40px] sm:h-[40px]"
       />
     </button>
   );

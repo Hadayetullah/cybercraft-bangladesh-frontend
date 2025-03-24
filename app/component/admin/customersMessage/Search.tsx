@@ -16,7 +16,7 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
   };
 
   return (
-    <div className="w-[295px] h-[40px] relative">
+    <div className="w-[120px] sm:w-[295px] h-[35px] sm:h-[40px] relative">
       <input
         type="text"
         placeholder="Search"
@@ -28,7 +28,7 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
 
       <button
         onClick={handleSearchClick}
-        className="absolute right-3 top-2 text-gray-300 cursor-text z-10 flex items-center justify-center"
+        className="absolute right-1 sm:right-3 top-1 sm:top-2 text-gray-300 cursor-text z-10 flex items-center justify-center"
       >
         <img
           src="/icon/search.png"

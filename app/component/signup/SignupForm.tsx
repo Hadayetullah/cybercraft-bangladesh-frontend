@@ -102,7 +102,7 @@ const SignupForm = () => {
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 lg:space-y-2 2xl:space-y-3 pt-2 md:pt-5 2xl:pt-6">
+      <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 lg:space-y-2 2xl:space-y-3 pt-2 md:pt-6 2xl:pt-8">
         <div className="w-full">
           <label
             htmlFor="name"
@@ -239,7 +239,7 @@ const SignupForm = () => {
           {loading ? "Creating account..." : "Create account"}
         </button>
 
-        <h2 className="text-[18px] text-[#000000B2] font-[600] text-center py-2 sm:py-4 leading-[125%] tracking-[0%] ">
+        <h2 className="text-[18px] text-[#000000B2] font-[600] text-center py-2 sm:py-3 2xl:py-4 leading-[125%] tracking-[0%] ">
           Or
         </h2>
 

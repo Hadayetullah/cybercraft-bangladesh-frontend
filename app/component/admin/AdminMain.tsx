@@ -98,14 +98,14 @@ const AdminMain = () => {
         />
       )}
 
-      <div className="w-full bg-[#e0e2e5] sm:pl-[250px] xl:pl-[345px] pt-[80px] flex flex-row fixed top-[0] left-[0px] h-full">
-        <div className="w-full h-full py-2 px-10">
+      <div className="w-full bg-[#e0e2e5] pl-0 sm:pl-[250px] xl:pl-[345px] pt-[80px] flex flex-row fixed top-[0] left-[0px] h-full">
+        <div className="w-full h-full py-2 px-0 sm:px-10">
           <h3 className="leading-[46px] tracking-[0px] sm:text-[28px] xl:text-[32px] font-[500] ">
             Customer's Message
           </h3>
 
-          <div className="relative w-full h-[calc(100vh-150px)] bg-white rounded-md p-4 mt-2">
-            <div className="absolute right-4 w-full h-[42px] flex flex-row space-x-4 items-center justify-end">
+          <div className="relative w-full h-[calc(100vh-150px)] bg-white rounded-md py-1 pt-3 sm:p-4 mt-2">
+            <div className="absolute right-1 sm:right-4 w-full h-[38px] sm:h-[42px] flex flex-row space-x-2 sm:space-x-4 items-center justify-end">
               <Search
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}

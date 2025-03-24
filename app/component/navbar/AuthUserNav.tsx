@@ -75,10 +75,10 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
           </button>
 
           {toggleMenu && (
-            <div className="flex flex-col absolute left-0 top-12 bg-white w-[220px] text-[17px] font-[600] border border-gray-200 bg-gray-100 rounded rounded-xs shadow-lg sm:hidden">
+            <div className="flex flex-col absolute left-0 top-12 bg-white w-[170px] sm:w-[220px] text-[15px] sm:text-[17px] font-[600] border border-gray-200 bg-gray-100 rounded rounded-xs shadow-lg sm:hidden">
               <Link
                 href="#"
-                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-1 sm:py-2 px-1 sm:px-2 hover:bg-indigo-700 ${
                   path === "#" ? "bg-indigo-700 text-white" : ""
                 }`}
               >
@@ -87,7 +87,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
 
               <Link
                 href="#"
-                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-1 sm:py-2 px-1 sm:px-2 hover:bg-indigo-700 ${
                   path === "#" ? "bg-indigo-700 text-white" : ""
                 }`}
               >
@@ -96,7 +96,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
 
               <Link
                 href="#"
-                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-1 sm:py-2 px-1 sm:px-2 hover:bg-indigo-700 ${
                   path === "#" ? "bg-indigo-700 text-white" : ""
                 }`}
               >
@@ -105,7 +105,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
 
               <Link
                 href="#"
-                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-1 sm:py-2 px-1 sm:px-2 hover:bg-indigo-700 ${
                   path === "#" ? "bg-indigo-700 text-white" : ""
                 }`}
               >
@@ -114,7 +114,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
 
               <Link
                 href="#"
-                className={`transition rounded hover:text-white hover:text-white w-full h-full py-2 px-2 hover:bg-indigo-700 ${
+                className={`transition rounded hover:text-white hover:text-white w-full h-full py-1 sm:py-2 px-1 sm:px-2 hover:bg-indigo-700 ${
                   path === "#" ? "bg-indigo-700 text-white" : ""
                 }`}
               >
@@ -154,7 +154,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
         </button>
 
         {toggleUser && (
-          <div className="flex flex-col absolute right-0 top-[50px] bg-white w-[250px] border border-gray-200 bg-gray-100 rounded rounded-xs shadow-lg p-4">
+          <div className="flex flex-col absolute right-0 top-[50px] bg-white w-[170px] sm:w-[250px] border border-gray-200 bg-gray-100 rounded rounded-xs shadow-lg p-1 sm:p-4">
             <div className="flex flex-col gap-y-2">
               <span>
                 User: <br />{" "}
@@ -180,7 +180,6 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
                   : "cursor-pointer"
               }`}
             >
-              Logout
               {logoutLoading ? "Logging out..." : "Logout"}
             </button>
           </div>
