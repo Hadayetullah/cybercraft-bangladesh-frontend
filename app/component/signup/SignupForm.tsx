@@ -102,7 +102,7 @@ const SignupForm = () => {
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 lg:space-y-2 2xl:space-y-3 pt-2 md:pt-4 xl:pt-5">
+      <form className="w-full sm:w-[380px] md:w-[410px] lg:w-[440px] 2xl:w-[487px] flex flex-col space-y-1 lg:space-y-2 2xl:space-y-3 pt-2 md:pt-5 2xl:pt-6">
         <div className="w-full">
           <label
             htmlFor="name"
@@ -119,7 +119,7 @@ const SignupForm = () => {
             onChange={(e) => handleChange(e)}
             onFocus={() => handleFocus()}
             required
-            className="w-full h-[35px] sm:h-[45px] xl:h-[56px] p-[10px] bg-[#FFFFFF] text-[16px] leading-[125%] tracking-[0%] text-[#00000080] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+            className="w-full h-[35px] sm:h-[45px] 2xl:h-[56px] p-[10px] bg-[#FFFFFF] text-[16px] leading-[125%] tracking-[0%] text-[#00000080] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
           />
 
           <div
@@ -146,7 +146,7 @@ const SignupForm = () => {
             onChange={(e) => handleChange(e)}
             onFocus={() => handleFocus()}
             required
-            className="w-full h-[35px] sm:h-[45px] xl:h-[56px] p-[10px] bg-[#FFFFFF] text-[16px] leading-[125%] tracking-[0%] text-[#00000080] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+            className="w-full h-[35px] sm:h-[45px] 2xl:h-[56px] p-[10px] bg-[#FFFFFF] text-[16px] leading-[125%] tracking-[0%] text-[#00000080] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
           />
 
           <div
@@ -178,7 +178,7 @@ const SignupForm = () => {
             onChange={(e) => handleChange(e)}
             onFocus={() => handleFocus()}
             required
-            className="w-full h-[35px] sm:h-[45px] xl:h-[56px] p-[10px] bg-[#FFFFFF] text-[16px] leading-[125%] tracking-[0%] text-[#00000080] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+            className="w-full h-[35px] sm:h-[45px] 2xl:h-[56px] p-[10px] bg-[#FFFFFF] text-[16px] leading-[125%] tracking-[0%] text-[#00000080] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
           />
 
           <div
@@ -211,7 +211,7 @@ const SignupForm = () => {
             onChange={(e) => handleChange(e)}
             onFocus={() => handleFocus()}
             required
-            className="w-full h-[35px] sm:h-[45px] xl:h-[56px] p-[10px] bg-[#FFFFFF] text-[16px] leading-[125%] tracking-[0%] text-[#00000080] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
+            className="w-full h-[35px] sm:h-[45px] 2xl:h-[56px] p-[10px] bg-[#FFFFFF] text-[16px] leading-[125%] tracking-[0%] text-[#00000080] mt-1 border border-[#D8DADC] rounded-[10px] outline-none"
           />
 
           <div
@@ -232,7 +232,7 @@ const SignupForm = () => {
           onSubmit={(e) => handleSubmit(e)}
           onClick={(e) => handleSubmit(e)}
           disabled={loading}
-          className={`w-full h-[35px] sm:h-[45px] xl:h-[56px] leading-[125%] tracking-[0%] text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] rounded-[10px] ${
+          className={`w-full h-[35px] sm:h-[45px] 2xl:h-[56px] leading-[125%] tracking-[0%] text-[16px] text-[#FFFFFF] font-[600] text-center bg-[#345485] rounded-[10px] ${
             loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
