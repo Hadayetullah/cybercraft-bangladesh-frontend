@@ -37,7 +37,7 @@ const AuthUserNav: React.FC<AuthenticatedProps> = ({
             <img
               src={"/image/CyberCraft-Bangladesh.png"}
               alt="CyberCraft-Bangladesh"
-              className="w-[90px] h-[40px] sm:w-[118px] sm:h-[52px]"
+              className="w-[65px] h-[40px] sm:w-[118px] sm:h-[52px]"
             />
           </Link>
         </div>

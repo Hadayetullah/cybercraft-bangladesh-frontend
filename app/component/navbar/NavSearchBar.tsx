@@ -17,7 +17,7 @@ const NavSearchBar: React.FC<NavSearchBarsProps> = ({
   };
 
   return (
-    <div className="sm:w-[300px] md:w-[400px] lg:w-[500px] h-[32px] flex items-center justify-center mx-auto relative">
+    <div className="w-[260px] md:w-[370px] lg:w-[500px] h-[32px] flex items-center justify-center mx-auto relative">
       <input
         type="text"
         placeholder="Search"
